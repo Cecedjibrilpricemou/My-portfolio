@@ -1,4 +1,4 @@
-import { Menu, X, ArrowRight, Download, Mail, Github, Linkedin, Twitter } from 'lucide-react';
+import { Menu, X, Download, Mail, Github, Linkedin, Twitter } from 'lucide-react';
 import { useState } from 'react';
 import me from './assets/me.jpg';
 import maphoto from './assets/maphoto.jpg';
