@@ -77,7 +77,7 @@ function App() {
                 <a href='tel:+224627082601' className="px-6 py-3 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 transition flex items-center gap-2">
                   <span>📞</span> Appelez
                 </a>
-                <a href='./assets/cv.pdf' download={cv} className="px-6 py-3 border-2 border-gray-900 text-gray-900 rounded-lg font-semibold hover:bg-gray-900 hover:text-white transition flex items-center gap-2">
+                <a href={cv} download="cv.pdf" className="px-6 py-3 border-2 border-gray-900 text-gray-900 rounded-lg font-semibold hover:bg-gray-900 hover:text-white transition flex items-center gap-2">
                   <Download size={18} /> Telecharger mon CV
                 </a>
               </div>
