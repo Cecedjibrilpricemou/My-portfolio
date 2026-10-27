@@ -25,6 +25,10 @@
   transition-delay: 180ms;
 }
 
+.service-grid .scroll-reveal:nth-child(4) {
+  transition-delay: 260ms;
+}
+
 .project-grid .scroll-reveal:nth-child(4) {
   transition-delay: 100ms;
 }
@@ -211,6 +215,24 @@
   color: var(--ink-soft);
   font-size: 16px;
   line-height: 1.8;
+}
+
+.hero-devops {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  margin: -10px 0 22px;
+  padding: 9px 12px;
+  border: 1px solid #cfe4dc;
+  border-radius: 6px;
+  background: #edf6f2;
+  color: var(--teal-dark);
+  font-size: 11px;
+  font-weight: 650;
+}
+
+.hero-devops svg {
+  flex: 0 0 auto;
 }
 
 .hero-actions {
@@ -739,6 +761,10 @@
   gap: 18px;
 }
 
+.service-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
 .service-card {
   min-height: 210px;
   padding: 25px;
@@ -752,6 +778,11 @@
 .project-card:hover {
   transform: translateY(-4px);
   box-shadow: 0 16px 40px rgb(18 53 71 / 9%);
+}
+
+.service-card:nth-child(4) {
+  border-color: #c5e1d8;
+  background: #f0f7f4;
 }
 
 .service-topline {

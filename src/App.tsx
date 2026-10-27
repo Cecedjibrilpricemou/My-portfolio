@@ -14,6 +14,7 @@ import {
   Menu,
   Smartphone,
   Sparkles,
+  Workflow,
   X,
 } from 'lucide-react';
 import './App.css';
@@ -49,6 +50,11 @@ const services = [
     icon: Smartphone,
     title: 'Applications mobiles',
     description: 'Des expériences mobiles intuitives, utiles et agréables à utiliser.',
+  },
+  {
+    icon: Workflow,
+    title: 'DevOps & automatisation',
+    description: 'Des workflows CI/CD pour automatiser les vérifications et fiabiliser la livraison des applications.',
   },
 ];
 
@@ -163,12 +169,17 @@ function App() {
         <section className="hero section" id="home">
           <div className="hero-grid shell">
             <div className="hero-copy">
-              <p className="eyebrow"><span className="eyebrow-line" /> Développeur web & mobile</p>
+              <p className="eyebrow"><span className="eyebrow-line" /> Développeur web, mobile & DevOps</p>
               <h1>Je transforme vos idées en <span>expériences digitales.</span></h1>
               <p className="hero-description">
                 Je suis Pricemou Cece Djibril, développeur web et mobile basé à Conakry.
-                Je conçois des applications performantes, utiles et agréables à utiliser.
+                Je conçois des applications utiles et performantes, puis automatise leur
+                vérification et leur livraison grâce à Docker et aux workflows CI/CD.
               </p>
+              <div className="hero-devops">
+                <Workflow size={16} />
+                <span>Du code au déploiement, avec des workflows automatisés</span>
+              </div>
               <div className="hero-actions">
                 <a className="button button-primary" href="#contact">
                   Parlons de votre projet <ArrowUpRight size={18} />
@@ -184,7 +195,7 @@ function App() {
               </div>
 
               <div className="social-links" aria-label="Réseaux sociaux">
-                <a href="https://github.com/Cecedjibrilpricemou" target="_blank" rel="noreferrer" aria-label="GitHub">
+                <a href="https://github.com/Cecedjibrilpricemou/Cecedjibrilpricemou" target="_blank" rel="noreferrer" aria-label="GitHub">
                   <Github size={19} />
                 </a>
                 <a href="mailto:cecedjibrilpricemou1er@gmail.com" aria-label="E-mail">
@@ -254,8 +265,8 @@ function App() {
               </p>
               <p>
                 J’aime transformer des idées complexes en expériences simples, performantes et
-                accessibles. Curieux et rigoureux, je continue d’apprendre et de relever de
-                nouveaux défis techniques.
+                accessibles. Je m’intéresse aussi aux pratiques DevOps : automatiser les
+                vérifications et les livraisons pour rendre le développement plus fiable et fluide.
               </p>
               <div className="expertise-list">
                 <span><i>✓</i> Design responsive</span>
@@ -288,7 +299,7 @@ function App() {
                 <p className="eyebrow"><span className="eyebrow-line" /> Ce que je fais</p>
                 <h2>Des compétences au service<br /><span>de vos ambitions.</span></h2>
               </div>
-              <p>De la conception à la mise en ligne, je vous accompagne dans la réalisation de vos idées.</p>
+              <p>De la conception à l’automatisation des livraisons, je vous accompagne dans la réalisation de vos idées.</p>
             </div>
             <div className="service-grid">
               {services.map(({ icon: Icon, title, description }, index) => (
@@ -343,7 +354,7 @@ function App() {
                     <span className="project-art-orbit" />
                     <a
                       className="project-arrow"
-                      href="https://github.com/CeceDjibrilPricemou"
+                      href="https://github.com/Cecedjibrilpricemou/Cecedjibrilpricemou"
                       target="_blank"
                       rel="noreferrer"
                       aria-label={`Découvrir ${title} sur mon profil GitHub`}
@@ -366,14 +377,14 @@ function App() {
             <div className="delivery-note scroll-reveal">
               <span className="delivery-icon"><Github size={20} /></span>
               <div>
-                <h3>Du développement au déploiement</h3>
+                <h3>DevOps : automatiser pour livrer avec confiance</h3>
                 <p>
-                  J’utilise Docker pour préparer des environnements cohérents et GitHub Actions
-                  pour automatiser les workflows CI/CD, notamment les étapes de vérification et
-                  de livraison des projets.
+                  Avec Docker, GitHub Actions, Semgrep et SonarQube, je mets en place des
+                  environnements cohérents et des workflows CI/CD qui automatisent les
+                  vérifications, l’analyse de qualité du code et les étapes de livraison.
                 </p>
               </div>
-              <span className="delivery-tag">Docker · CI/CD</span>
+              <span className="delivery-tag">Docker · CI/CD · Qualité</span>
             </div>
           </div>
         </section>
