@@ -1,266 +1,407 @@
-import { Menu, X, Download, Mail, Github, Linkedin, Twitter } from 'lucide-react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import {
+  ArrowDown,
+  ArrowUpRight,
+  BriefcaseBusiness,
+  Code2,
+  ClipboardList,
+  Download,
+  Github,
+  LayoutDashboard,
+  Linkedin,
+  Mail,
+  MapPin,
+  Menu,
+  Smartphone,
+  Sparkles,
+  X,
+} from 'lucide-react';
+import './App.css';
 import me from './assets/me.jpg';
-import maphoto from './assets/maphoto.jpg';
-import cv from './assets/cv.pdf'
+import cv from './assets/cv.pdf';
+
+const navigation = [
+  { label: 'Accueil', href: '#home' },
+  { label: 'À propos', href: '#about' },
+  { label: 'Expertises', href: '#services' },
+  { label: 'Compétences', href: '#skills' },
+  { label: 'Projets', href: '#projects' },
+];
+
+const skills = [
+  { category: 'Front-end', items: ['Angular', 'TypeScript', 'Angular Material', 'PrimeNG'] },
+  { category: 'Back-end', items: ['Node.js', 'Laravel', 'PostgreSQL'] },
+  { category: 'Outils & qualité logicielle', items: ['Git', 'Docker', 'GitHub Actions', 'Semgrep', 'SonarQube'] },
+];
+
+const services = [
+  {
+    icon: LayoutDashboard,
+    title: 'Interfaces web',
+    description: 'Des interfaces claires, accessibles et adaptées à tous les écrans.',
+  },
+  {
+    icon: Code2,
+    title: 'Développement web',
+    description: 'Des applications robustes, rapides et pensées pour évoluer.',
+  },
+  {
+    icon: Smartphone,
+    title: 'Applications mobiles',
+    description: 'Des expériences mobiles intuitives, utiles et agréables à utiliser.',
+  },
+];
+
+const projects = [
+  {
+    number: '01',
+    title: 'DevStage',
+    description: 'Une plateforme dédiée à l’insertion professionnelle, qui aide les étudiants à trouver des stages et les entreprises à publier leurs offres.',
+    technologies: ['Laravel', 'Angular'],
+    icon: BriefcaseBusiness,
+  },
+  {
+    number: '02',
+    title: 'Gestion des tâches en entreprise',
+    description: 'Un outil de suivi du travail d’équipe pour attribuer les tâches à chaque employé, planifier les dates de début et d’échéance, et suivre l’avancement des activités.',
+    technologies: ['Node.js', 'Angular'],
+    icon: ClipboardList,
+  },
+  {
+    number: '03',
+    title: 'BaoBaoHealth',
+    description: 'Un service numérique qui rapproche patients, hôpitaux et pharmacies pour simplifier l’accès aux établissements et aux services de santé.',
+    technologies: ['Node.js', 'Angular'],
+    icon: Smartphone,
+  },
+  {
+    number: '04',
+    title: 'Plateforme foncière sur blockchain',
+    description: 'Un projet de registre foncier sécurisé visant à améliorer la traçabilité et l’intégrité des transactions immobilières en Guinée.',
+    technologies: ['Node.js', 'Angular', 'PostgreSQL', 'Hyperledger Fabric', 'Polygon', 'Docker'],
+    icon: LayoutDashboard,
+  },
+  {
+    number: '05',
+    title: 'EduSmart GN',
+    description: 'Une plateforme de gestion scolaire qui réunit le suivi des élèves, des notes et des présences, ainsi que la gestion des bulletins et des paiements.',
+    technologies: ['Angular', 'Node.js', 'PostgreSQL'],
+    icon: Code2,
+  },
+  {
+    number: '06',
+    title: 'Forum académique',
+    description: 'Une application mobile conçue pour faciliter les échanges et le partage de connaissances entre étudiants et enseignants.',
+    technologies: ['Flutter', 'Firebase'],
+    icon: Smartphone,
+  },
+];
 
 function App() {
   const [menuOpen, setMenuOpen] = useState(false);
 
-  const skills = [
-    { category: "Frontend", items: ["Angular", "TypeScript", "Tailwind CSS", "Daisy UI", "React.js"] },
-    { category: "Backend", items: ["Express js", "Laravel", "Django", "MongoDB", "PostgreSQL"] },
-    { category: "Tools", items: ["Git", "Docker", "Figma"] }
-  ];
+  useEffect(() => {
+    const elements = document.querySelectorAll<HTMLElement>('.scroll-reveal');
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  const projects = [
-    { title: "E-commerce Platform", desc: "Solution  e-commerce complete avec integration de paiement", tech: "React, Node.js, MongoDB" },
-    { title: "Gestion de Taches", desc: "Gestionnaire de taches collaratif en temps reel avec notifications.", tech: "React, Firebase" },
-    { title: "Tableau de Bord Analytique", desc: "Tableau de bord de visualisation de donnees avec graphiques interactifs ", tech: "React, D3.js" }
-  ];
+    if (prefersReducedMotion || !('IntersectionObserver' in window)) {
+      elements.forEach((element) => element.classList.add('is-visible'));
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.12, rootMargin: '0px 0px -36px 0px' },
+    );
+
+    elements.forEach((element) => observer.observe(element));
+    return () => observer.disconnect();
+  }, []);
+
+  const closeMenu = () => setMenuOpen(false);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-blue-50">
-      {/* Navigation */}
-      <nav className="fixed top-0 w-full bg-white/80 backdrop-blur z-50 shadow-sm">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
-            <div className="text-2xl font-bold">
-              <span className="text-blue-600">Dev</span><span className="text-gray-900">web & Mobile </span>
-            </div>
+    <div className="portfolio">
+      <header className="site-header">
+        <nav className="navigation shell" aria-label="Navigation principale">
+          <a className="brand" href="#home" onClick={closeMenu} aria-label="Pricemou, accueil">
+            <span className="brand-mark">P</span>
+            <span className="brand-name">Pricemou<span>.</span></span>
+          </a>
 
-            <div className="hidden md:flex gap-8">
-              <a href="#home" className="text-gray-700 hover:text-blue-600 transition font-medium">Home</a>
-              <a href="#about" className="text-gray-700 hover:text-blue-600 transition font-medium">A propos</a>
-              <a href="#services" className="text-gray-700 hover:text-blue-600 transition font-medium">Services</a>
-              <a href="#projects" className="text-gray-700 hover:text-blue-600 transition font-medium">Projets</a>
-            </div>
-            <button onClick={() => setMenuOpen(!menuOpen)} className="md:hidden text-gray-700">
-              {menuOpen ? <X size={24} /> : <Menu size={24} />}
-            </button>
-          </div>
+          <button
+            className="menu-toggle"
+            type="button"
+            aria-label={menuOpen ? 'Fermer le menu' : 'Ouvrir le menu'}
+            aria-expanded={menuOpen}
+            onClick={() => setMenuOpen(!menuOpen)}
+          >
+            {menuOpen ? <X size={21} /> : <Menu size={21} />}
+          </button>
 
-          {menuOpen && (
-            <div className="md:hidden pb-4 space-y-2">
-              <a href="#home" className="block text-gray-700 py-2">Home</a>
-              <a href="#about" className="block text-gray-700 py-2">A propos</a>
-              <a href="#services" className="block text-gray-700 py-2">Services</a>
-              <a href="#projects" className="block text-gray-700 py-2">Projets</a>
-              <a href="#blog" className="block text-gray-700 py-2">Blog</a>
-              <a href="#contact" className="block text-gray-700 py-2">Contact</a>
-            </div>
-          )}
-        </div>
-      </nav>
-
-      {/* Hero Section */}
-      <section id="home" className="pt-32 pb-20 px-4">
-        <div className="max-w-7xl mx-auto">
-          <div className="grid md:grid-cols-2 gap-12 items-center">
-            {/* Left Content */}
-            <div>
-              <h2 className="text-xl text-gray-600 mb-4">HI</h2>
-
-              <h1 className="text-6xl md:text-7xl font-bold text-gray-900 mb-4 leading-tight">
-                I'm Pricemou
-              </h1>
-
-              <p className="text-2xl md:text-3xl font-semibold mb-6">
-                A <span className="text-blue-600">Web Developer</span>
-              </p>
-
-              <p className="text-gray-600 text-lg mb-8 max-w-md">
-                Hello, Je suis Pricemou Cece Djibril developpeur web et application mobile designer depuis conakry.
-              </p>
-
-              <div className="flex gap-4 flex-wrap mb-12">
-                <a href='tel:+224627082601' className="px-6 py-3 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 transition flex items-center gap-2">
-                  <span>📞</span> Appelez
-                </a>
-                <a href={cv} download="cv.pdf" className="px-6 py-3 border-2 border-gray-900 text-gray-900 rounded-lg font-semibold hover:bg-gray-900 hover:text-white transition flex items-center gap-2">
-                  <Download size={18} /> Telecharger mon CV
-                </a>
-              </div>
-
-              {/* Social Links */}
-              <div className="flex gap-6">
-                <a href="https://github.com/Cecedjibrilpricemou" target="_blank" className="text-gray-700 hover:text-blue-600 transition">
-                  <Github size={24} />
-                </a>
-                <a href="https://www.linkedin.com/Cecedjibrilpricemou" target="_blank" className="text-gray-700 hover:text-blue-600 transition">
-                  <Linkedin size={24} />
-                </a>
-                <a href="https://www.linkedin.com/Cecedjibrilpricemou" target="_blank" className="text-gray-700 hover:text-blue-600 transition">
-                  <Twitter size={24} />
-                </a>
-                <a href="mailto:cecedjibrilpricemou1er@gmail.com" className="text-gray-700 hover:text-blue-600 transition">
-                  <Mail size={24} />
-                </a>
-              </div>
-            </div>
-
-            {/* Right Image */}
-            <div className="relative flex justify-center items-center">
-              <div className="relative w-80 h-96">
-                <img
-                  src={me}
-                  alt="Profile"
-                  className="w-full h-full rounded-2xl shadow-2xl object-cover"
-                />
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* About Section */}
-      <section id="about" className="py-20 px-4">
-        <div className="max-w-6xl mx-auto">
-          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-12">A propos de moi</h2>
-
-          <div className="grid md:grid-cols-2 gap-12 items-center">
-            <div>
-              <img
-                src={maphoto}
-                alt="About"
-                className="w-full rounded-2xl shadow-xl object-cover"
-              />
-            </div>
-            <div>
-              <p className="text-gray-700 text-lg mb-6 leading-relaxed">
-                Actuellemen en fin de cycle d'etude en genie informatique , je suis passionne du developpement d'ecosystement numeriques. Mon parcours universitaire m'a permis d'acquerir une base solide en ingenierie logicielle , que j'applique avec enthousiasme dans la creation d'applications web et mobiles innovantes
-              </p>
-              <p className="text-gray-700 text-lg mb-8 leading-relaxed">
-                Specialise dans les technologies modernes , je m'efforce de concevoir des solutions performantes , intuitives et centrees sur l'utilisateur. Mon objectif est de transformer des idees complexes en experiences digitales fluides , tout en continuant d'apprendre et de relever de nouveaux defis techniques.
-              </p>
-
-              <h3 className="text-2xl font-bold text-gray-900 mb-4">Mon expertise</h3>
-              <div className="grid grid-cols-2 gap-4">
-                <div className="flex items-center gap-2">
-                  <span className="text-blue-600 text-xl">✓</span>
-                  <span className="text-gray-700">Design Responsif </span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <span className="text-blue-600 text-xl">✓</span>
-                  <span className="text-gray-700"> Applications Web</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <span className="text-blue-600 text-xl">✓</span>
-                  <span className="text-gray-700"> Optimisations des Performances</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <span className="text-blue-600 text-xl">✓</span>
-                  <span className="text-gray-700"> Optimisation SEO</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Services Section */}
-      <section id="services" className="py-20 px-4 bg-blue-50">
-        <div className="max-w-6xl mx-auto">
-          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-12">Mes Services</h2>
-
-          <div className="grid md:grid-cols-3 gap-8">
-            {[
-              { title: "Web Design", desc: "Creation d'interfaces esthetiques et ergonomique qui captivent votre audiance" },
-              { title: "Web Development", desc: "Construction d'application web robustes et evolutives utilisant les technologies modernes" },
-              { title: "Consulting", desc: "Accompagnement technique sur le choix des technologies et l'architecture de vos projets." }
-            ].map((service, idx) => (
-              <div key={idx} className="bg-white rounded-xl p-8 shadow-lg hover:shadow-xl transition">
-                <div className="w-12 h-12 bg-blue-600 rounded-lg mb-4"></div>
-                <h3 className="text-xl font-bold text-gray-900 mb-3">{service.title}</h3>
-                <p className="text-gray-700 mb-4">{service.desc}</p>
-                <a href="#" className="text-blue-600 font-semibold flex items-center gap-2 hover:gap-3 transition">
-                </a>
-              </div>
+          <div className={`nav-links${menuOpen ? ' is-open' : ''}`}>
+            {navigation.map((item) => (
+              <a key={item.href} href={item.href} onClick={closeMenu}>
+                {item.label}
+              </a>
             ))}
+            <a className="nav-contact" href="#contact" onClick={closeMenu}>
+              Me contacter <ArrowUpRight size={16} />
+            </a>
           </div>
-        </div>
-      </section>
+        </nav>
+      </header>
 
-      {/* Skills Section */}
-      <section id="skills" className="py-20 px-4 bg-white">
-        <div className="max-w-6xl mx-auto">
-          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-12">Competences et Expertises</h2>
-
-          <div className="grid md:grid-cols-3 gap-8">
-            {skills.map((skillGroup, idx) => (
-              <div key={idx} className="bg-gradient-to-br from-blue-50 to-white rounded-xl p-8 border border-blue-100">
-                <h3 className="text-2xl font-bold text-gray-900 mb-6">{skillGroup.category}</h3>
-                <ul className="space-y-3">
-                  {skillGroup.items.map((item, i) => (
-                    <li key={i} className="flex items-center gap-3 text-gray-700">
-                      <span className="w-2 h-2 bg-blue-600 rounded-full"></span>
-                      {item}
-                    </li>
-                  ))}
-                </ul>
+      <main>
+        <section className="hero section" id="home">
+          <div className="hero-grid shell">
+            <div className="hero-copy">
+              <p className="eyebrow"><span className="eyebrow-line" /> Développeur web & mobile</p>
+              <h1>Je transforme vos idées en <span>expériences digitales.</span></h1>
+              <p className="hero-description">
+                Je suis Pricemou Cece Djibril, développeur web et mobile basé à Conakry.
+                Je conçois des applications performantes, utiles et agréables à utiliser.
+              </p>
+              <div className="hero-actions">
+                <a className="button button-primary" href="#contact">
+                  Parlons de votre projet <ArrowUpRight size={18} />
+                </a>
+                <a className="button button-outline" href={cv} download="Pricemou-CV.pdf">
+                  <Download size={17} /> Télécharger mon CV
+                </a>
               </div>
-            ))}
+
+              <div className="hero-meta">
+                <div className="availability"><span /> Disponible pour échanger</div>
+                <div className="hero-location"><MapPin size={16} /> Kipé, Conakry, Guinée</div>
+              </div>
+
+              <div className="social-links" aria-label="Réseaux sociaux">
+                <a href="https://github.com/Cecedjibrilpricemou" target="_blank" rel="noreferrer" aria-label="GitHub">
+                  <Github size={19} />
+                </a>
+                <a href="mailto:cecedjibrilpricemou1er@gmail.com" aria-label="E-mail">
+                  <Mail size={19} />
+                </a>
+                <a
+                  href="https://www.linkedin.com/in/cece-djibril-pricemou-30b1bb315"
+                  target="_blank"
+                  rel="noreferrer"
+                  aria-label="LinkedIn"
+                >
+                  <Linkedin size={19} />
+                </a>
+              </div>
+              <a
+                className="digital-card-link"
+                href="https://ma-carte-de-visite-numerique.vercel.app/"
+                target="_blank"
+                rel="noreferrer"
+              >
+                Voir ma carte de visite numérique <ArrowUpRight size={15} />
+              </a>
+            </div>
+
+            <div className="hero-visual">
+              <div className="portrait-frame">
+                <div className="portrait-accent" />
+                <img className="hero-portrait" src={me} alt="Pricemou, développeur web et mobile" />
+                <div className="portrait-caption">
+                  <span className="caption-icon"><Code2 size={18} /></span>
+                  <span><strong>Créativité & technologie</strong><small>Au service de vos idées</small></span>
+                </div>
+                <div className="portrait-stamp"><Sparkles size={20} /><span>Curieux<br />de nature</span></div>
+              </div>
+              <span className="visual-orbit orbit-one" />
+              <span className="visual-orbit orbit-two" />
+            </div>
           </div>
-        </div>
-      </section>
+          <a href="#about" className="scroll-cue"><ArrowDown size={16} /> Découvrir la suite</a>
+        </section>
 
-      {/* Projects Section */}
-      <section id="projects" className="py-20 px-4 bg-blue-50">
-        <div className="max-w-6xl mx-auto">
-          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-12">Projets en Vedette</h2>
-
-          <div className="grid md:grid-cols-3 gap-8">
-            {projects.map((project, idx) => (
-              <div key={idx} className="bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition">
-                <div className="h-40 bg-gradient-to-br from-blue-400 to-blue-600"></div>
-                <div className="p-6">
-                  <h3 className="text-xl font-bold text-gray-900 mb-3">{project.title}</h3>
-                  <p className="text-gray-700 mb-4">{project.desc}</p>
-                  <p className="text-sm text-blue-600 font-semibold mb-4">{project.tech}</p>
-                  <a href="#" className="text-blue-600 font-semibold flex items-center gap-2 hover:gap-3 transition">
-                  </a>
+        <section className="about section section-soft" id="about">
+          <div className="about-grid shell">
+            <div className="about-visual scroll-reveal">
+              <div className="about-profile-card">
+                <div className="about-profile-top">
+                  <span className="about-profile-dot" />
+                  <span>Développement web & mobile</span>
+                  <Code2 size={18} />
+                </div>
+                <div className="about-monogram">PCD<span>.</span></div>
+                <p className="about-profile-message">Concevoir.<br />Développer.<br /><span>Faire évoluer.</span></p>
+                <div className="about-profile-footer">
+                  <span>Conakry, Guinée</span>
+                  <span>Curieux par nature</span>
                 </div>
               </div>
-            ))}
+              <div className="about-note"><span>01</span><p>Une approche<br />humaine du numérique</p></div>
+            </div>
+            <div className="about-copy scroll-reveal">
+              <p className="eyebrow"><span className="eyebrow-line" /> À propos</p>
+              <h2>Un développeur engagé, <span>des solutions qui ont du sens.</span></h2>
+              <p>
+                En fin de cycle d’études en génie informatique, je me passionne pour la création
+                d’écosystèmes numériques. Mon parcours m’a permis d’acquérir de solides bases
+                en ingénierie logicielle et de les mettre au service de projets concrets.
+              </p>
+              <p>
+                J’aime transformer des idées complexes en expériences simples, performantes et
+                accessibles. Curieux et rigoureux, je continue d’apprendre et de relever de
+                nouveaux défis techniques.
+              </p>
+              <div className="expertise-list">
+                <span><i>✓</i> Design responsive</span>
+                <span><i>✓</i> Applications web & mobiles</span>
+                <span><i>✓</i> Performance & qualité</span>
+                <span><i>✓</i> Expérience utilisateur</span>
+              </div>
+              <div className="experience-card">
+                <span className="experience-icon"><BriefcaseBusiness size={18} /></span>
+                <div className="experience-copy">
+                  <small>Expérience professionnelle</small>
+                  <strong>Stagiaire développeur web · Ecash</strong>
+                  <small>Août – novembre</small>
+                  <p>
+                    Participation à la conception de projets et aux travaux sur l’authentification
+                    des services entre entreprises. Une expérience qui m’a permis d’approfondir
+                    mes compétences et de mieux comprendre les enjeux de collaboration et de
+                    sécurité dans les applications.
+                  </p>
+                </div>
+              </div>
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* Contact Section */}
-      <section id="contact" className="py-20 px-4 bg-white">
-        <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">Travaillons ensemble</h2>
-          <p className="text-xl text-gray-700 mb-12 max-w-2xl mx-auto">
-            Un projet en tete? J'aimerais beaucoup en discuter avec vous . contactez-moi pour que nous creions quelque chose d'incroyable ensemble
-          </p>
-
-          <div className="flex flex-col sm:flex-row gap-4 justify-center flex-wrap">
-            <a href="mailto:cecedjibrilpricemou1er@gmail.com" className="px-8 py-4 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 transition flex items-center gap-2 justify-center">
-              <Mail size={20} /> Envoyer un mail
-            </a>
+        <section className="services section" id="services">
+          <div className="shell">
+            <div className="section-heading scroll-reveal">
+              <div>
+                <p className="eyebrow"><span className="eyebrow-line" /> Ce que je fais</p>
+                <h2>Des compétences au service<br /><span>de vos ambitions.</span></h2>
+              </div>
+              <p>De la conception à la mise en ligne, je vous accompagne dans la réalisation de vos idées.</p>
+            </div>
+            <div className="service-grid">
+              {services.map(({ icon: Icon, title, description }, index) => (
+                <article className="service-card scroll-reveal" key={title}>
+                  <div className="service-topline"><span>0{index + 1}</span><Icon size={22} /></div>
+                  <h3>{title}</h3>
+                  <p>{description}</p>
+                  <span className="service-rule" />
+                </article>
+              ))}
+            </div>
           </div>
+        </section>
 
-          <div className="mt-12 flex justify-center gap-8">
-            <a href="https://github.com/Cecedjibrilpricemou" target="_blank" className="text-gray-400 hover:text-blue-600 transition">
-              <Github size={28} />
-            </a>
-            <a href="https://www.linkedin.com/Cecedjibrilpricemou" target="_blank" className="text-gray-400 hover:text-blue-600 transition">
-              <Linkedin size={28} />
-            </a>
-            <a href="https://twitter.com/Cecedjibrilpricemou" target="_blank" className="text-gray-400 hover:text-blue-600 transition">
-              <Twitter size={28} />
-            </a>
-            <a href="mailto:cecedjibrilpricemou1er@gmail.com" className="text-gray-400 hover:text-blue-600 transition">
-              <Mail size={28} />
-            </a>
+        <section className="skills section section-soft" id="skills">
+          <div className="shell">
+            <div className="section-heading scroll-reveal">
+              <div>
+                <p className="eyebrow"><span className="eyebrow-line" /> Ma boîte à outils</p>
+                <h2>Les technologies<br /><span>que je maîtrise.</span></h2>
+              </div>
+              <p>Un socle technique polyvalent pour concevoir et réaliser des produits numériques fiables.</p>
+            </div>
+            <div className="skill-grid">
+              {skills.map((group) => (
+                <article className="skill-card scroll-reveal" key={group.category}>
+                  <h3>{group.category}</h3>
+                  <div className="skill-tags">
+                    {group.items.map((item) => <span key={item}>{item}</span>)}
+                  </div>
+                </article>
+              ))}
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* Footer */}
-      <footer className="bg-gray-900 text-white py-12 px-4">
-        <div className="max-w-6xl mx-auto text-center">
-          <p className="mb-4">© 2025 Pricemou. All rights reserved.</p>
+        <section className="projects section" id="projects">
+          <div className="shell">
+            <div className="section-heading scroll-reveal">
+              <div>
+                <p className="eyebrow"><span className="eyebrow-line" /> Sélection de projets</p>
+                <h2>Des idées devenues<br /><span>réalisations.</span></h2>
+              </div>
+              <p>Des solutions numériques pensées pour répondre à des besoins concrets dans les domaines de l’emploi, de la santé, de l’éducation et du foncier.</p>
+            </div>
+            <div className="project-grid">
+              {projects.map(({ number, title, description, technologies, icon: Icon }) => (
+                <article className="project-card scroll-reveal" key={number}>
+                  <div className="project-art">
+                    <span className="project-number">{number} / {String(projects.length).padStart(2, '0')}</span>
+                    <div className="project-art-icon"><Icon size={31} strokeWidth={1.5} /></div>
+                    <span className="project-art-orbit" />
+                    <a
+                      className="project-arrow"
+                      href="https://github.com/CeceDjibrilPricemou"
+                      target="_blank"
+                      rel="noreferrer"
+                      aria-label={`Découvrir ${title} sur mon profil GitHub`}
+                    >
+                      <ArrowUpRight size={19} />
+                    </a>
+                  </div>
+                  <div className="project-content">
+                    <h3>{title}</h3>
+                    <p>{description}</p>
+                    {technologies && (
+                      <div className="project-tags">
+                        {technologies.map((technology) => <span key={technology}>{technology}</span>)}
+                      </div>
+                    )}
+                  </div>
+                </article>
+              ))}
+            </div>
+            <div className="delivery-note scroll-reveal">
+              <span className="delivery-icon"><Github size={20} /></span>
+              <div>
+                <h3>Du développement au déploiement</h3>
+                <p>
+                  J’utilise Docker pour préparer des environnements cohérents et GitHub Actions
+                  pour automatiser les workflows CI/CD, notamment les étapes de vérification et
+                  de livraison des projets.
+                </p>
+              </div>
+              <span className="delivery-tag">Docker · CI/CD</span>
+            </div>
+          </div>
+        </section>
+
+        <section className="contact section" id="contact">
+          <div className="contact-inner shell scroll-reveal">
+            <p className="eyebrow"><span className="eyebrow-line" /> Et maintenant ?</p>
+            <h2>Une idée en tête ?<br /><span>Créons quelque chose d’utile.</span></h2>
+            <p className="contact-description">
+              Vous avez un projet, une question ou simplement envie d’échanger ? Écrivez-moi, je serai ravi d’en discuter avec vous.
+            </p>
+            <a className="button button-light" href="mailto:cecedjibrilpricemou1er@gmail.com">
+              <Mail size={18} /> Écrivez-moi <ArrowUpRight size={18} />
+            </a>
+            <div className="contact-details">
+              <a href="mailto:cecedjibrilpricemou1er@gmail.com">cecedjibrilpricemou1er@gmail.com</a>
+              <a href="tel:+224627082601">+224 627 08 26 01</a>
+              <span>Kipé, Conakry, Guinée</span>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <footer className="site-footer">
+        <div className="footer-inner shell">
+          <a className="brand footer-brand" href="#home"><span className="brand-mark">P</span><span className="brand-name">Pricemou<span>.</span></span></a>
+          <p>Conçu avec soin à Conakry · © {new Date().getFullYear()} Pricemou</p>
+          <a className="back-to-top" href="#home">Retour en haut <ArrowUpRight size={15} /></a>
         </div>
       </footer>
     </div>
