@@ -30,9 +30,9 @@ const navigation = [
 ];
 
 const skills = [
-  { category: 'Front-end', items: ['Angular', 'TypeScript', 'Angular Material', 'PrimeNG'] },
-  { category: 'Back-end', items: ['Node.js', 'Laravel', 'PostgreSQL'] },
-  { category: 'Outils & qualité logicielle', items: ['Git', 'Docker', 'GitHub Actions', 'Semgrep', 'SonarQube'] },
+  { category: 'Interfaces web', items: ['Angular', 'Angular Material', 'PrimeNG'] },
+  { category: 'Applications côté serveur', items: ['Node.js', 'Laravel', 'PostgreSQL', 'MySQL'] },
+  { category: 'Applications mobiles', items: ['Flutter'] },
 ];
 
 const services = [
@@ -82,23 +82,23 @@ const projects = [
   },
   {
     number: '04',
-    title: 'Plateforme foncière sur blockchain',
-    description: 'Un projet de registre foncier sécurisé visant à améliorer la traçabilité et l’intégrité des transactions immobilières en Guinée.',
-    technologies: ['Node.js', 'Angular', 'PostgreSQL', 'Hyperledger Fabric', 'Polygon', 'Docker'],
+    title: 'Suivi sécurisé des biens fonciers',
+    description: 'Une application visant à sécuriser l’information sur les terrains et à rendre les transactions immobilières plus transparentes en Guinée.',
+    technologies: ['Node.js', 'Angular'],
     icon: LayoutDashboard,
   },
   {
     number: '05',
     title: 'EduSmart GN',
     description: 'Une plateforme de gestion scolaire qui réunit le suivi des élèves, des notes et des présences, ainsi que la gestion des bulletins et des paiements.',
-    technologies: ['Angular', 'Node.js', 'PostgreSQL'],
+    technologies: ['Angular', 'Node.js'],
     icon: Code2,
   },
   {
     number: '06',
     title: 'Forum académique',
     description: 'Une application mobile conçue pour faciliter les échanges et le partage de connaissances entre étudiants et enseignants.',
-    technologies: ['Flutter', 'Firebase'],
+    technologies: ['Flutter'],
     icon: Smartphone,
   },
 ];

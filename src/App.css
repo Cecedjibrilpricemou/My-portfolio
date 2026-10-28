@@ -47,7 +47,7 @@
   --line: #dce7e5;
   --paper: #fbfcfa;
   color: var(--ink);
-  overflow: hidden;
+  overflow-x: clip;
 }
 
 .shell {
