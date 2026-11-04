@@ -18,7 +18,7 @@ import {
   X,
 } from 'lucide-react';
 import './App.css';
-import me from './assets/me.jpg';
+import me from './assets/me.jpeg';
 import cv from './assets/cv.pdf';
 
 const navigation = [
