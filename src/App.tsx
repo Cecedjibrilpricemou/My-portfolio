@@ -18,8 +18,10 @@ import {
   X,
 } from 'lucide-react';
 import './App.css';
-import me from './assets/me.jpeg';
-import cv from './assets/cv.pdf';
+import me from './assets/photoDjibril.jpg';
+//import cv from './assets/cv.pdf';
+import cvEn from './assets/cvpricemouEn.pdf';
+import cvFr from './assets/cvpricemoufr.pdf';
 
 const navigation = [
   { label: 'Accueil', href: '#home' },
@@ -184,8 +186,11 @@ function App() {
                 <a className="button button-primary" href="#contact">
                   Parlons de votre projet <ArrowUpRight size={18} />
                 </a>
-                <a className="button button-outline" href={cv} download="Pricemou-CV.pdf">
+                <a className="button button-outline" href={cvEn} download="Pricemou-CV.pdf">
                   <Download size={17} /> Télécharger mon CV
+                </a>
+                  <a className="button button-outline" href={cvFr} download="Pricemou-CV.pdf">
+                  <Download size={17} /> Download my CV
                 </a>
               </div>
 
